@@ -2,7 +2,7 @@
 const API_BASE = import.meta.env.VITE_API_URL || 
                  (window.location.hostname === 'localhost' ? 
                   'http://localhost:5000/api' : 
-                  'https://job-tracker-ruddy-xi.vercel.app/api');
+                  `${window.location.protocol}//${window.location.hostname}/api`);
 
 console.log('Using API URL:', API_BASE);
 
@@ -22,15 +22,11 @@ const handleResponse = async (response) => {
        response.status === 400 ? 'Invalid input data' : 
        response.status === 403 ? 'Not authorized' : 
        response.status === 404 ? 'Resource not found' : 
-       response.status === 0 ? 'Network error. This may be caused by ad-blocker.' : 
        'Something went wrong');
     
     throw new Error(errorMessage);
   }
-    return response.json().catch(error => {
-    console.error('Failed to parse JSON response:', error);
-    throw new Error('Failed to parse server response.');
-  });
+  return response.json();
 };
 
 export const authAPI = {
@@ -60,11 +56,12 @@ export const authAPI = {
   },
 };
 
-export const jobsAPI = {
-  getJobs: async (filters) => {
+export const jobsAPI = {  getJobs: async (filters) => {
     const queryParams = new URLSearchParams();
     if (filters?.status) queryParams.append('status', filters.status);
     if (filters?.sortBy) queryParams.append('sortBy', filters.sortBy);
+    if (filters?.page) queryParams.append('page', filters.page);
+    if (filters?.limit) queryParams.append('limit', filters.limit);
     
     const response = await fetch(`${API_BASE}/jobs?${queryParams}`, {
       headers: getAuthHeaders(),
