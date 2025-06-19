@@ -27,9 +27,9 @@ const allowedOrigins = [
   frontendURL,
   'http://localhost:3000',
   'http://localhost:5173',
-  'https://job-tracker-elite.vercel.app',
-  'https://job-tracker-elite-git-main.vercel.app',
-  'https://job-tracker-elite-*.vercel.app',
+  'https://job-tracker-yr27.vercel.app',
+  'https://job-tracker-yr27-git-main.vercel.app',
+  'https://job-tracker-yr27-*.vercel.app',
   // Allow all origins in development for troubleshooting
   ...(process.env.NODE_ENV !== 'production' ? ['*'] : [])
 ];
