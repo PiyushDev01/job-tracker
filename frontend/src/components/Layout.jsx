@@ -301,11 +301,10 @@ const Layout = () => {
         </main>
           {/* Footer */}
         <footer className="bg-white border-t border-gray-200 py-4 px-6 mt-auto">
-          <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm">
-            <div className="mb-3 sm:mb-0 flex items-center">
-              <span className="font-medium text-gray-700">I'm Mohd Faziel</span>
+          <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center text-sm">            <div className="mb-3 sm:mb-0 flex items-center">
+              <span className="font-medium text-gray-700">I'm Piyush Vishwakarma</span>
               <a 
-                href="https://www.faziel.me" 
+                href="https://www.piyushdev.me/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="ml-3 bg-primary-50 text-primary-700 hover:bg-primary-100 px-3 py-1 rounded-full font-medium transition-colors flex items-center gap-1"
