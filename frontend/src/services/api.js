@@ -27,12 +27,10 @@ const handleResponse = async (response) => {
     
     throw new Error(errorMessage);
   }
-  
-  return response.json().catch(error => {
+    return response.json().catch(error => {
     console.error('Failed to parse JSON response:', error);
     throw new Error('Failed to parse server response.');
-  }
-};
+  });
 };
 
 export const authAPI = {
