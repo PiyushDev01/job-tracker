@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import { Calendar, MapPin, Banknote, Edit, Trash2 } from 'lucide-react';
+import { MdCalendarToday, MdLocationOn, MdAttachMoney, MdEdit, MdDelete } from 'react-icons/md';
 
 const JobCard = ({ job, onDelete }) => {
   const getStatusClass = (status) => {
@@ -35,30 +35,30 @@ const JobCard = ({ job, onDelete }) => {
             className="p-1.5 sm:p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
             aria-label="Edit job"
           >
-            <Edit className="h-4 w-4" />
+            <MdEdit className="h-4 w-4" />
           </Link>
           <button
             onClick={() => onDelete(job._id)}
             className="p-1.5 sm:p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
             aria-label="Delete job"
           >
-            <Trash2 className="h-4 w-4" />
+            <MdDelete className="h-4 w-4" />
           </button>
         </div>
       </div><div className="flex flex-wrap gap-y-2 gap-x-4 mb-4 text-sm text-gray-500">
         <div className="flex items-center space-x-1 min-w-[120px]">
-          <Calendar className="h-4 w-4 flex-shrink-0" />
+          <MdCalendarToday className="h-4 w-4 flex-shrink-0" />
           <span className="truncate">{format(new Date(job.appliedDate), 'MMM dd, yyyy')}</span>
         </div>
         {job.location && (
           <div className="flex items-center space-x-1 min-w-[100px]">
-            <MapPin className="h-4 w-4 flex-shrink-0" />
+            <MdLocationOn className="h-4 w-4 flex-shrink-0" />
             <span className="truncate">{job.location}</span>
           </div>
         )}
         {job.salary && (
           <div className="flex items-center space-x-1">
-            <Banknote className="h-4 w-4 flex-shrink-0" />
+            <MdAttachMoney className="h-4 w-4 flex-shrink-0" />
             <span className="truncate">{job.salary}</span>
           </div>
         )}

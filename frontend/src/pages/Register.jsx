@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useNotifications } from '../contexts/NotificationContext.jsx';
-import { Briefcase, User, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { MdWork, MdPerson, MdEmail, MdLock, MdVisibility, MdVisibilityOff, MdError } from 'react-icons/md';
 
 const Register = () => {
   const [name, setName] = useState('');

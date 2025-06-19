@@ -4,19 +4,19 @@ import { useAuth } from '../contexts/AuthContext.jsx';
 import { useNotifications } from '../contexts/NotificationContext.jsx';
 import { formatDistanceToNow } from 'date-fns';
 import { 
-  LayoutDashboard, 
-  Plus, 
-  User, 
-  LogOut, 
-  Briefcase,
-  Bell,
-  Menu,
-  X,
-  CheckCircle, 
-  AlertCircle, 
-  Info, 
-  AlertTriangle
-} from 'lucide-react';
+  MdDashboard, 
+  MdAdd, 
+  MdPerson, 
+  MdLogout, 
+  MdWork,
+  MdNotifications,
+  MdMenu,
+  MdClose,
+  MdCheckCircle, 
+  MdError, 
+  MdInfo, 
+  MdWarning
+} from 'react-icons/md';
 
 const Layout = () => {
   const { user, logout } = useAuth();
@@ -77,18 +77,17 @@ const Layout = () => {
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
   }, [notificationsOpen]);
-
   // Get icon based on notification type
   const getIcon = (type) => {
     switch (type) {
       case 'success':
-        return <CheckCircle className="h-4 w-4 text-green-500" />;
+        return <MdCheckCircle className="h-4 w-4 text-green-500" />;
       case 'error':
-        return <AlertCircle className="h-4 w-4 text-red-500" />;
+        return <MdError className="h-4 w-4 text-red-500" />;
       case 'warning':
-        return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+        return <MdWarning className="h-4 w-4 text-yellow-500" />;
       default:
-        return <Info className="h-4 w-4 text-blue-500" />;
+        return <MdInfo className="h-4 w-4 text-blue-500" />;
     }
   };
   return (
@@ -108,10 +107,8 @@ const Layout = () => {
           sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         } transition-transform duration-300 ease-in-out`}
       >
-        <div className="p-6">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-gradient-primary rounded-lg">
-              <Briefcase className="h-6 w-6 text-white" />
+        <div className="p-6">          <div className="flex items-center space-x-3">            <div className="p-1 rounded-lg overflow-hidden">
+              <img src="/logo.png" alt="Job Tracker Logo" className="h-8 w-8 object-contain" />
             </div>
             <h1 className="text-xl font-bold text-gray-900">Job Tracker</h1>
           </div>
@@ -128,7 +125,7 @@ const Layout = () => {
               }`}
               onClick={() => window.innerWidth < 768 && setSidebarOpen(false)}
             >
-              <LayoutDashboard className="h-5 w-5" />
+              <MdDashboard className="h-5 w-5" />
               <span>Dashboard</span>
             </Link>
 
@@ -141,7 +138,7 @@ const Layout = () => {
               }`}
               onClick={() => window.innerWidth < 768 && setSidebarOpen(false)}
             >
-              <Plus className="h-5 w-5" />
+              <MdAdd className="h-5 w-5" />
               <span>Add Job</span>
             </Link>
           </div>
@@ -151,7 +148,7 @@ const Layout = () => {
         <div className="absolute bottom-0 w-64 p-4 border-t border-gray-200">
           <div className="flex items-center justify-between">              <div className="flex items-center space-x-3">
               <div className="p-2 bg-gray-100 rounded-full">
-                <User className="h-4 w-4 text-gray-600" />
+                <MdPerson className="h-4 w-4 text-gray-600" />
               </div>
               <div className="max-w-[150px]">
                 <p className="text-sm font-medium text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">{user?.name}</p>
@@ -162,7 +159,7 @@ const Layout = () => {
               onClick={handleLogout}
               className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <LogOut className="h-4 w-4" />
+              <MdLogout className="h-4 w-4" />
             </button>
           </div>
         </div>
@@ -176,11 +173,10 @@ const Layout = () => {
                 onClick={toggleSidebar}
                 className="md:hidden p-2 rounded-md hover:bg-gray-100"
                 aria-label="Toggle menu"
-              >
-                {sidebarOpen ? (
-                  <X className="h-6 w-6 text-gray-600" />
+              >                {sidebarOpen ? (
+                  <MdClose className="h-6 w-6 text-gray-600" />
                 ) : (
-                  <Menu className="h-6 w-6 text-gray-600" />
+                  <MdMenu className="h-6 w-6 text-gray-600" />
                 )}
               </button>
               <h2 className="text-2xl font-bold text-gray-900">                {location.pathname === '/dashboard' && 'Dashboard'}
@@ -196,7 +192,7 @@ const Layout = () => {
                   className="relative p-2 rounded-md hover:bg-gray-100 transition-colors focus:outline-none border border-gray-200"
                   aria-label="Notifications"
                 >
-                  <Bell className={`h-6 w-6 ${notifications.length > 0 ? 'text-primary-600' : 'text-gray-500'} transition-colors`} />
+                  <MdNotifications className={`h-6 w-6 ${notifications.length > 0 ? 'text-primary-600' : 'text-gray-500'} transition-colors`} />
                   {notifications.length > 0 && (
                     <span className="absolute -top-1 -right-1 flex items-center justify-center h-5 w-5 bg-red-500 text-white rounded-full text-xs font-bold animate-pulse">
                       {notifications.length}
@@ -214,7 +210,7 @@ const Layout = () => {
                     />
                     <div className="fixed sm:absolute top-16 sm:top-auto right-1 sm:right-0 left-1 sm:left-auto mt-0 sm:mt-2 w-auto sm:w-80 md:w-96 max-h-[calc(100vh-5rem)] sm:max-h-[70vh] overflow-y-auto bg-white rounded-lg shadow-xl border border-gray-200 z-50 animate-fadeIn origin-top-right"><div className="sticky top-0 p-3 sm:p-4 border-b border-gray-200 flex items-center justify-between bg-gradient-to-r from-primary-50 to-white">
                       <h3 className="font-semibold text-primary-700 flex items-center gap-2">
-                        <Bell className="h-5 w-5" />
+                        <MdNotifications className="h-5 w-5" />
                         <span>Notifications</span>
                         {notifications.length > 0 && (
                           <span className="bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full">
@@ -233,24 +229,23 @@ const Layout = () => {
                           >
                             Clear all
                           </button>
-                        )}
-                        <button 
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setNotificationsOpen(false);
-                          }}
-                          className="sm:hidden p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full"
-                          aria-label="Close notifications"
-                        >
-                          <X className="h-4 w-4" />
-                        </button>
+                        )}                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setNotificationsOpen(false);
+                            }}
+                            className="sm:hidden p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full"
+                            aria-label="Close notifications"
+                          >
+                            <MdClose className="h-4 w-4" />
+                          </button>
                       </div>
                     </div>
                     
                     <div className="divide-y divide-gray-100">                      {notifications.length === 0 ? (
                         <div className="p-6 text-center text-gray-500 flex flex-col items-center gap-3">
                           <div className="p-3 bg-gray-50 rounded-full">
-                            <Bell className="h-6 w-6 text-gray-400" />
+                            <MdNotifications className="h-6 w-6 text-gray-400" />
                           </div>
                           <p>No notifications yet</p>
                           <p className="text-xs text-gray-400">Job updates will appear here</p>
@@ -283,7 +278,7 @@ const Layout = () => {
                                   className="text-gray-400 hover:text-gray-600 p-1 hover:bg-gray-100 rounded-full"
                                   aria-label="Remove notification"
                                 >
-                                  <X className="h-4 w-4" />
+                                  <MdClose className="h-4 w-4" />
                                 </button>
                               </div>
                             </div>

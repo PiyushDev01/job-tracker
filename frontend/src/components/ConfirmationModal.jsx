@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { X } from 'lucide-react';
+import { MdClose } from 'react-icons/md';
 
 const ConfirmationModal = ({ isOpen, onClose, onConfirm, title, message, confirmText = 'Confirm', cancelText = 'Cancel', variant = 'danger' }) => {
   if (!isOpen) return null;
@@ -35,7 +35,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, title, message, confirm
             className="text-gray-400 hover:text-gray-500 transition-colors"
             aria-label="Close"
           >
-            <X className="h-5 w-5" />
+            <MdClose className="h-5 w-5" />
           </button>
         </div>
 

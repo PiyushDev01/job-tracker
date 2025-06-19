@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNotifications } from '../contexts/NotificationContext.jsx';
-import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
+import { MdClose, MdCheckCircle, MdError, MdInfo, MdWarning } from 'react-icons/md';
 import { formatDistanceToNow } from 'date-fns';
 
 /**
@@ -8,7 +8,6 @@ import { formatDistanceToNow } from 'date-fns';
  */
 const Notifications = () => {
   const { notifications, removeNotification } = useNotifications();
-
   /**
    * Get the appropriate icon for notification type
    * @param {string} type - The notification type
@@ -17,13 +16,13 @@ const Notifications = () => {
   const getIcon = (type) => {
     switch (type) {
       case 'success':
-        return <CheckCircle className="h-5 w-5 text-green-500" />;
+        return <MdCheckCircle className="h-5 w-5 text-green-500" />;
       case 'error':
-        return <AlertCircle className="h-5 w-5 text-red-500" />;
+        return <MdError className="h-5 w-5 text-red-500" />;
       case 'warning':
-        return <AlertTriangle className="h-5 w-5 text-yellow-500" />;
+        return <MdWarning className="h-5 w-5 text-yellow-500" />;
       default:
-        return <Info className="h-5 w-5 text-blue-500" />;
+        return <MdInfo className="h-5 w-5 text-blue-500" />;
     }
   };
 

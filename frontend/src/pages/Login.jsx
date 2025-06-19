@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useNotifications } from '../contexts/NotificationContext.jsx';
-import { Briefcase, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { MdWork, MdEmail, MdLock, MdVisibility, MdVisibilityOff, MdError } from 'react-icons/md';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -69,7 +69,7 @@ const Login = () => {
         <div className="text-center">
           <div className="flex justify-center">
             <div className="p-3 bg-white rounded-full shadow-lg">
-              <Briefcase className="h-8 w-8 text-primary-600" />
+              <MdWork className="h-8 w-8 text-primary-600" />
             </div>
           </div>
           <h2 className="mt-6 text-3xl font-bold text-white">
@@ -83,7 +83,7 @@ const Login = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>          {errors.auth && (
             <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
               <div className="flex items-center">
-                <AlertCircle className="h-5 w-5 text-red-500 mr-2" />
+                <MdError className="h-5 w-5 text-red-500 mr-2" />
                 <p className="text-red-700 text-sm">{errors.auth}</p>
               </div>
             </div>
@@ -96,7 +96,7 @@ const Login = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
+                  <MdEmail className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="email"
@@ -127,7 +127,7 @@ const Login = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                  <MdLock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="password"
@@ -147,11 +147,10 @@ const Login = () => {
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
+                >                  {showPassword ? (
+                    <MdVisibilityOff className="h-5 w-5 text-gray-400" />
                   ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
+                    <MdVisibility className="h-5 w-5 text-gray-400" />
                   )}
                 </button>
               </div>
