@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useNotifications } from '../contexts/NotificationContext.jsx';
-import { MdWork, MdPerson, MdEmail, MdLock, MdVisibility, MdVisibilityOff, MdError } from 'react-icons/md';
+import { Briefcase, User, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -82,15 +82,13 @@ const Register = () => {
     <div className="min-h-screen bg-gradient-primary flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <div className="flex justify-center">
-            <div className="p-3 bg-white rounded-full shadow-lg">
-              <Briefcase className="h-8 w-8 text-primary-600" />
+          <div className="flex justify-center">            <div className="p-2 bg-white rounded-full shadow-lg">
+              <img src="/logo.png" alt="Job Tracker Logo" className="h-12 w-12 object-contain" />
             </div>
           </div>
           <h2 className="mt-6 text-3xl font-bold text-white">
             Create Account
-          </h2>
-          <p className="mt-2 text-sm text-blue-100">
+          </h2>          <p className="mt-2 text-sm text-primary-100">
             Start tracking your job applications today
           </p>
         </div>        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -264,10 +262,9 @@ const Register = () => {
             </button>
           </div>
 
-          <div className="text-center">
-            <p className="text-sm text-blue-100">
+          <div className="text-center">            <p className="text-sm text-primary-100">
               Already have an account?{' '}
-              <Link to="/login" className="font-medium text-white hover:text-blue-100 underline">
+              <Link to="/login" className="font-medium text-white hover:text-primary-100 underline">
                 Sign in here
               </Link>
             </p>

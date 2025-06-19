@@ -66,16 +66,14 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-primary flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <div className="flex justify-center">
-            <div className="p-3 bg-white rounded-full shadow-lg">
-              <MdWork className="h-8 w-8 text-primary-600" />
+        <div className="text-center">          <div className="flex justify-center">
+            <div className="p-2 bg-white rounded-full shadow-lg">
+              <img src="/logo.png" alt="Job Tracker Logo" className="h-12 w-12 object-contain" />
             </div>
           </div>
           <h2 className="mt-6 text-3xl font-bold text-white">
             Welcome Back
-          </h2>
-          <p className="mt-2 text-sm text-blue-100">
+          </h2>          <p className="mt-2 text-sm text-primary-100">
             Sign in to manage your job applications
           </p>
         </div>
@@ -112,10 +110,9 @@ const Login = () => {
                     if (errors.email) setErrors({...errors, email: ''});
                   }}
                 />
-              </div>
-              {errors.email && (
+              </div>              {errors.email && (
                 <p className="mt-1 text-sm text-red-500 flex items-center">
-                  <AlertCircle className="h-3 w-3 mr-1" />
+                  <MdError className="h-3 w-3 mr-1" />
                   {errors.email}
                 </p>
               )}
@@ -153,10 +150,9 @@ const Login = () => {
                     <MdVisibility className="h-5 w-5 text-gray-400" />
                   )}
                 </button>
-              </div>
-              {errors.password && (
+              </div>              {errors.password && (
                 <p className="mt-1 text-sm text-red-500 flex items-center">
-                  <AlertCircle className="h-3 w-3 mr-1" />
+                  <MdError className="h-3 w-3 mr-1" />
                   {errors.password}
                 </p>
               )}
@@ -167,7 +163,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-primary-900 py-3 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
@@ -180,10 +176,9 @@ const Login = () => {
             </button>
           </div>
 
-          <div className="text-center">
-            <p className="text-sm text-blue-100">
+          <div className="text-center">            <p className="text-sm text-primary-100">
               Don't have an account?{' '}
-              <Link to="/register" className="font-medium text-white hover:text-blue-100 underline">
+              <Link to="/register" className="font-medium text-white hover:text-primary-100 underline">
                 Sign up here
               </Link>
             </p>
