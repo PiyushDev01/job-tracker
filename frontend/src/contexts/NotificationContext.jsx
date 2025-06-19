@@ -52,24 +52,20 @@ export const NotificationProvider = ({ children }) => {
     if (user) {
       // Use the correct URL based on environment
       let socketUrl = 'http://localhost:5000'; // Default fallback
-      
-      try {
-        // More robust URL detection
-        if (import.meta.env.VITE_API_URL) {
+        try {
+        // Use direct socket URL in production
+        if (import.meta.env.VITE_NODE_ENV === 'production') {
+          socketUrl = 'https://job-tracker-ruddy-xi.vercel.app';
+        }
+        // For local development
+        else if (import.meta.env.VITE_API_URL) {
           // Extract origin from the API URL
           const apiUrl = new URL(import.meta.env.VITE_API_URL);
           socketUrl = apiUrl.origin;
         }
-        
-        // In production, try to use the same domain if we're on it
-        if (window.location.hostname !== 'localhost' && 
-            window.location.protocol === 'https:') {
-          // If we're on the actual frontend domain in production, use relative URL
-          socketUrl = window.location.origin;
-        }
       } catch (error) {
         console.error('Error parsing socket URL:', error);
-      }      console.log(`Attempting to connect to socket at: ${socketUrl}`);
+      }console.log(`Attempting to connect to socket at: ${socketUrl}`);
       setConnectionAttempts(prev => prev + 1);
       
       // Use a try-catch for socket connection to gracefully handle adblocker issues

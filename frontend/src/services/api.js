@@ -2,7 +2,7 @@
 const API_BASE = import.meta.env.VITE_API_URL || 
                  (window.location.hostname === 'localhost' ? 
                   'http://localhost:5000/api' : 
-                  `${window.location.protocol}//${window.location.hostname}/api`);
+                  'https://job-tracker-ruddy-xi.vercel.app/api');
 
 console.log('Using API URL:', API_BASE);
 
