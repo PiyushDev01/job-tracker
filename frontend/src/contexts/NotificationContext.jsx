@@ -69,26 +69,41 @@ export const NotificationProvider = ({ children }) => {
         }
       } catch (error) {
         console.error('Error parsing socket URL:', error);
-      }
-      
-      console.log(`Connecting to socket at: ${socketUrl}`);
+      }      console.log(`Attempting to connect to socket at: ${socketUrl}`);
       setConnectionAttempts(prev => prev + 1);
       
-      const newSocket = io(socketUrl, {
-        path: '/socket.io', // Explicit path
-        auth: {
-          token: localStorage.getItem('token'),
-          userId: user.id // Send user ID for proper room assignment
-        },
-        transports: ['polling', 'websocket'], // Try polling first, then upgrade
-        reconnectionAttempts: 5,
-        reconnectionDelay: 1000,
-        reconnectionDelayMax: 10000,
-        timeout: 20000,
-        withCredentials: true,
-        forceNew: connectionAttempts > 0, // Force new connection after failures
-        autoConnect: true
-      });      newSocket.on('notification', (data) => {
+      // Use a try-catch for socket connection to gracefully handle adblocker issues
+      let newSocket = null;
+      try {        // Use a simpler socket initialization to avoid lint errors
+        newSocket = io(socketUrl, {
+          path: '/realtime', // Custom path to bypass ad-blockers (MUST match server path)
+          auth: {
+            token: localStorage.getItem('token'),
+            userId: user.id
+          },
+          transports: ['polling', 'websocket'], // Try polling first
+          reconnectionAttempts: 5,
+          reconnectionDelay: 1000,
+          reconnectionDelayMax: 10000,
+          timeout: 20000,
+          withCredentials: true,
+          forceNew: connectionAttempts > 0, // Force new connection after failures
+          autoConnect: true,
+          rejectUnauthorized: false // Allow self-signed certificates in development
+        });
+      } catch (error) {
+        console.error('Failed to initialize socket connection:', error);
+        setConnectionError(true);
+        return; // Exit early if socket initialization fails
+      }
+      
+      // Add an error handling mechanism for blocked connections
+      newSocket.on('error', (error) => {
+        console.error('Socket error (possibly blocked by client):', error);
+        setConnectionError(true);
+      });
+      
+      newSocket.on('notification', (data) => {
         try {
           console.log('Received notification:', data);
           if (data && data.message) {
@@ -249,8 +264,7 @@ export const NotificationProvider = ({ children }) => {
     } catch (error) {
       console.error('Error clearing notifications in storage:', error);
     }
-  };
-  // Context value with connection status 
+  };  // Context value with connection status 
   const value = {
     notifications,
     addNotification,
@@ -268,8 +282,12 @@ export const NotificationProvider = ({ children }) => {
           console.error('Manual reconnection failed:', err);
           return false;
         }
+      } else {
+        console.warn('No socket connection available, possibly blocked by browser');
+        // Add a notification to inform the user
+        addNotification('Real-time notifications are disabled. This may be due to an ad-blocker or security software.', 'warning');
+        return false;
       }
-      return false;
     }
   };
 

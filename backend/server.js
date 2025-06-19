@@ -75,12 +75,13 @@ const io = new Server(httpServer, {
     allowedHeaders: corsOptions.allowedHeaders
   },
   allowEIO3: true, // Allow Engine.IO 3 compatibility
-  transports: ['websocket', 'polling'], // Support both transports
+  transports: ['polling', 'websocket'], // Try polling first, may help with some blockers
   pingTimeout: 60000, // 60 seconds before a client is considered disconnected
   pingInterval: 25000, // Send a ping every 25 seconds
   connectTimeout: 45000, // Longer connection timeout
   maxHttpBufferSize: 1e8, // Increase buffer size
-  allowUpgrades: true // Allow transport upgrades
+  allowUpgrades: true, // Allow transport upgrades
+  path: '/realtime' // Use a custom path to avoid ad-blocker blocking socket.io
 });
 
 // Connect to MongoDB

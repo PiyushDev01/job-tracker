@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext.jsx';
+import { useNotifications } from './contexts/NotificationContext.jsx';
+import { useEffect, useState } from 'react';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Dashboard from './pages/Dashboard.jsx';
@@ -9,6 +11,20 @@ import Layout from './components/Layout.jsx';
 
 function App() {
   const { user, loading } = useAuth();
+  const { connectionError, addNotification } = useNotifications();
+  const [hasShownWarning, setHasShownWarning] = useState(false);
+
+  // Show a warning if socket connection has issues (e.g., blocked by adblocker)
+  useEffect(() => {
+    if (connectionError && !hasShownWarning && user) {
+      addNotification(
+        'Some features may be limited. Real-time notifications might be blocked by your browser or extensions.',
+        'warning'
+      );
+      setHasShownWarning(true);
+      console.warn('Socket connection issues detected - likely blocked by client');
+    }
+  }, [connectionError, hasShownWarning, addNotification, user]);
 
   if (loading) {
     return (

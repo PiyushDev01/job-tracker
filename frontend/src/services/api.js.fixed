@@ -22,17 +22,11 @@ const handleResponse = async (response) => {
        response.status === 400 ? 'Invalid input data' : 
        response.status === 403 ? 'Not authorized' : 
        response.status === 404 ? 'Resource not found' : 
-       response.status === 0 ? 'Network error. This may be caused by ad-blocker.' : 
        'Something went wrong');
     
     throw new Error(errorMessage);
   }
-  
-  return response.json().catch(error => {
-    console.error('Failed to parse JSON response:', error);
-    throw new Error('Failed to parse server response.');
-  }
-};
+  return response.json();
 };
 
 export const authAPI = {
@@ -67,6 +61,8 @@ export const jobsAPI = {
     const queryParams = new URLSearchParams();
     if (filters?.status) queryParams.append('status', filters.status);
     if (filters?.sortBy) queryParams.append('sortBy', filters.sortBy);
+    if (filters?.page) queryParams.append('page', filters.page);
+    if (filters?.limit) queryParams.append('limit', filters.limit);
     
     const response = await fetch(`${API_BASE}/jobs?${queryParams}`, {
       headers: getAuthHeaders(),
